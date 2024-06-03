@@ -5,9 +5,11 @@ from random import choice as rchoice
 from bot import config_dict, LOGGER
 from bot.helper.themes import wzml_futuristic
 
-AVL_THEMES = {}
+AVL_THEMES = {"minimal": wzml_minimal, "emoji": wzml_emoji, "futuristic": wzml_futuristic} # You can add More ...
+# Add Last Dict Value, as shown, name: filename (same as given in Step 1)
+# Name can be of any Choice to Call the Theme Name
 for theme in listdir('bot/helper/themes'):
-    if theme.startswith('wzml_futuristic') and theme.endswith('.py'):
+    if theme.startswith('wzml_') and theme.endswith('.py'):
         AVL_THEMES[theme[5:-3]] = import_module(f'bot.helper.themes.{theme[:-3]}')
 
 def BotTheme(var_name, **format_vars):
@@ -24,6 +26,6 @@ def BotTheme(var_name, **format_vars):
         text = getattr(rantheme.WZMLStyle(), var_name, None)
         
     if text is None:
-        text = getattr(wzml_futuristic.WZMLStyle(), var_name)
+        text = getattr(wzml_.WZMLStyle(), var_name)
 
     return text.format_map(format_vars)
